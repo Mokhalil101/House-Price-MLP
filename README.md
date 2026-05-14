@@ -1,52 +1,62 @@
-📘 House Price Prediction using MLP (PyTorch)
+# 🏠 House Price Prediction using MLP (PyTorch)
 
-🧠 1. Project Overview
+---
 
-This project implements a House Price Prediction system using a Multilayer Perceptron (MLP) built with PyTorch.
+## 🧠 Project Overview
 
-The goal is to predict house sale prices based on structured tabular data from the Ames Housing dataset.
+This project implements a **House Price Prediction system** using a **Multilayer Perceptron (MLP)** built with PyTorch.
 
-This is a regression problem where the model learns complex non-linear relationships between house features and their final prices.
+The goal is to predict house sale prices based on structured tabular data from the **Ames Housing dataset**.
 
-🎯 2. Problem Statement
+This is a regression problem where the model learns non-linear relationships between house features and final price.
 
-The objective is to predict the final sale price of residential homes using multiple features such as:
+---
 
-House size and area
-Quality of construction and materials
-Garage attributes
-Year built and remodel year
-Neighborhood and categorical features
-📊 3. Dataset Description
-Dataset: Ames Housing Dataset
-Source: Kaggle
-Samples: ~2930 rows
-Features: 80+ features
-Target: SalePrice
-Feature Types:
-Numerical features (e.g., Lot Area, Garage Area)
-Categorical features (e.g., Neighborhood, House Style)
-⚙️ 4. Data Preprocessing Pipeline
-4.1 Handling Missing Values
-Numerical features → Mean Imputation
-Categorical features → Most Frequent Value
-4.2 Feature Encoding
-One-Hot Encoding applied to categorical variables
-4.3 Feature Scaling
-StandardScaler applied to numerical features
-4.4 Target Transformation
+## 🎯 Problem Statement
 
-To reduce skewness in price distribution:
+Predict the final sale price of residential homes using features such as:
 
+- House size and area
+- Quality of construction
+- Garage information
+- Year built / remodel year
+- Neighborhood and other categorical attributes
+
+---
+
+## 📊 Dataset
+
+- Dataset: Ames Housing Dataset  
+- Source: Kaggle  
+- Link: https://www.kaggle.com/datasets/prevek18/ames-housing-dataset  
+- Samples: ~2930 rows  
+- Features: 80+ features  
+- Target: `SalePrice`
+
+---
+
+## ⚙️ Data Preprocessing
+
+### 1. Missing Values Handling
+- Numerical features → Mean Imputation  
+- Categorical features → Most Frequent Value  
+
+### 2. Encoding
+- One-Hot Encoding for categorical variables  
+
+### 3. Feature Scaling
+- StandardScaler applied to numerical features  
+
+### 4. Target Transformation
+To reduce skewness:
+
+```python
 y = log(1 + y)
-4.5 Train-Test Split
-Training set: 80%
-Testing set: 20%
-Random state: 42
-🧠 5. Model Architecture (MLP)
-
-A fully connected neural network:
-
+5. Train/Test Split
+80% training
+20% testing
+Random state = 42
+🧠 Model Architecture (MLP)
 Input Layer
 ↓
 Linear (512) → BatchNorm → ReLU → Dropout
@@ -59,90 +69,50 @@ Output Layer (1 neuron)
 Activation Function:
 ReLU
 Regularization:
-Dropout (0.2 – 0.35)
+Dropout
 Batch Normalization
-⚙️ 6. Loss Function & Optimizer
-Loss Function:
-Smooth L1 Loss (Huber Loss)
-Why?
-More robust to outliers than MSE
-Optimizer:
-Adam Optimizer
-Learning Rate: 0.0005
-Weight Decay: 1e-4
-🏋️ 7. Training Process
+⚙️ Training Details
 Epochs: 150
 Batch Size: 64
-Training Steps:
-Forward pass
-Loss computation
-Backpropagation
-Parameter update
-📈 8. Evaluation Metrics
-Metric Used:
+Optimizer: Adam
+Learning Rate: 0.0005
+Weight Decay: 1e-4
+Loss Function: Smooth L1 Loss (Huber Loss)
+📈 Evaluation Metric
 Mean Squared Error (MSE)
-Formula:
-MSE=
-n
-1
-	​
-
-∑(y−
-y
-^
-	​
-
-)
-2
-Final Result:
+MSE = (1/n) * Σ (y - ŷ)^2
+📊 Results
 Final Test MSE: ~7.6 × 10^8
-📊 9. Visualization
-
-A scatter plot is used to compare:
-
-X-axis: Actual Prices
-Y-axis: Predicted Prices
-
-This helps evaluate how close predictions are to real values.
-
-📉 10. Key Observations
-Model captures general trends in the data
+📉 Observations
+Model captures general trends in housing prices
 Higher error on expensive houses
 Dataset is highly non-linear
-One-hot encoding increases feature dimensionality significantly
+One-hot encoding increases dimensionality significantly
 MLP is sensitive to noisy features in tabular data
-🚀 11. Future Improvements
-
-Although the current MLP model provides reasonable performance, several improvements can be applied:
-
+🚀 Future Improvements
 🔹 Feature Engineering
-Feature selection to remove irrelevant variables
-Correlation analysis and importance ranking
+Feature selection to remove irrelevant features
+Correlation analysis
 Reduce noise from high-dimensional features
 🔹 Encoding Improvements
 Replace One-Hot Encoding with:
 Target Encoding
-Embedding layers
+Embedding Layers
 🔹 Advanced Models
 XGBoost
 LightGBM
 CatBoost
-
-These models are often more effective for tabular data.
-
 🔹 Model Optimization
-Hyperparameter tuning (learning rate, layers, batch size)
-Automated tuning using Grid Search or Optuna
+Hyperparameter tuning
+Grid Search / Optuna
 🔹 Cross Validation
-K-Fold Cross Validation
-Improves stability and reduces variance
+K-Fold Cross Validation for stable evaluation
 🔹 Dimensionality Reduction
-PCA (Principal Component Analysis)
-Reduces feature space while preserving variance
-🔹 Regularization Enhancements
+PCA for feature compression
+🔹 Regularization
 L1 / L2 regularization
-Higher dropout rates
-📁 12. Project Structure
+Adjust dropout rates
+📁 Project Structure
 House-Price-MLP/
 │
 ├── model.py / model.ipynb
@@ -151,22 +121,18 @@ House-Price-MLP/
 ├── AmesHousing.csv (optional)
 └── results/
     └── prediction_plot.png
-💻 13. How to Run the Project
+💻 How to Run
 pip install -r requirements.txt
 python model.py
-🛠️ 14. Technologies Used
+🛠️ Technologies Used
 Python
 PyTorch
 Pandas
 NumPy
 Scikit-learn
 Matplotlib
-🧾 15. Conclusion
+👨‍💻 Conclusion
 
-This project demonstrates a complete deep learning pipeline for regression using an MLP model.
+This project demonstrates a full deep learning pipeline for regression using an MLP model.
 
-Despite being a simple architecture, it captures meaningful relationships in the dataset, but also highlights the limitations of neural networks for tabular data compared to gradient boosting methods.
-
-🚀 16. Final Note
-
-This project serves as a baseline deep learning regression model, with several planned improvements for future versions.
+It shows how neural networks can learn complex patterns in tabular data, while also highlighting limitations compared to tree-based models.
