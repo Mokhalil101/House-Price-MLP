@@ -1,57 +1,171 @@
-# 🏠 House Price Prediction using MLP (PyTorch)
+📘 House Price Prediction using MLP (PyTorch)
+🧠 1. Project Overview
 
-## 📌 Project Overview
-This project predicts house prices using a Multilayer Perceptron (MLP) neural network built with PyTorch.  
-The dataset used is the Ames Housing dataset.
+This project implements a House Price Prediction system using a Multilayer Perceptron (MLP) built with PyTorch.
 
----
+The goal is to predict house sale prices based on structured tabular data from the Ames Housing dataset.
 
-## 📊 Dataset
-- Source: Kaggle Ames Housing Dataset  
-- Link: https://www.kaggle.com/datasets/prevek18/ames-housing-dataset
+This is a regression problem where the model learns complex non-linear relationships between house features and their final prices.
 
----
+🎯 2. Problem Statement
 
-## ⚙️ Workflow
-- Data preprocessing
-- Missing value handling
-- One-hot encoding
-- Feature scaling
-- Log transformation of target
-- Training MLP model
+The objective is to predict the final sale price of residential homes using multiple features such as:
 
----
+House size and area
+Quality of construction and materials
+Garage attributes
+Year built and remodel year
+Neighborhood and categorical features
+📊 3. Dataset Description
+Dataset: Ames Housing Dataset
+Source: Kaggle
+Samples: ~2930 rows
+Features: 80+ features
+Target: SalePrice
+Feature Types:
+Numerical features (e.g., Lot Area, Garage Area)
+Categorical features (e.g., Neighborhood, House Style)
+⚙️ 4. Data Preprocessing Pipeline
+4.1 Handling Missing Values
+Numerical features → Mean Imputation
+Categorical features → Most Frequent Value
+4.2 Feature Encoding
+One-Hot Encoding applied to categorical variables
+4.3 Feature Scaling
+StandardScaler applied to numerical features
+4.4 Target Transformation
 
-## 🧠 Model Architecture
-- Input Layer
-- Hidden Layers: 512 → 256 → 128
-- Activation: ReLU
-- Regularization: Dropout + BatchNorm
-- Loss Function: Smooth L1 Loss (Huber Loss)
+To reduce skewness in price distribution:
 
----
+y = log(1 + y)
+4.5 Train-Test Split
+Training set: 80%
+Testing set: 20%
+Random state: 42
+🧠 5. Model Architecture (MLP)
 
-## 📈 Evaluation
-- Metric: Mean Squared Error (MSE)
-- Visualization: Actual vs Predicted prices
+A fully connected neural network:
 
----
+Input Layer
+↓
+Linear (512) → BatchNorm → ReLU → Dropout
+↓
+Linear (256) → BatchNorm → ReLU → Dropout
+↓
+Linear (128) → ReLU
+↓
+Output Layer (1 neuron)
+Activation Function:
+ReLU
+Regularization:
+Dropout (0.2 – 0.35)
+Batch Normalization
+⚙️ 6. Loss Function & Optimizer
+Loss Function:
+Smooth L1 Loss (Huber Loss)
+Why?
+More robust to outliers than MSE
+Optimizer:
+Adam Optimizer
+Learning Rate: 0.0005
+Weight Decay: 1e-4
+🏋️ 7. Training Process
+Epochs: 150
+Batch Size: 64
+Training Steps:
+Forward pass
+Loss computation
+Backpropagation
+Parameter update
+📈 8. Evaluation Metrics
+Metric Used:
+Mean Squared Error (MSE)
+Formula:
+MSE=
+n
+1
+	​
 
-## 📊 Result
-Final Test MSE: ~7.6e8
+∑(y−
+y
+^
+	​
 
----
+)
+2
+Final Result:
+Final Test MSE: ~7.6 × 10^8
+📊 9. Visualization
 
-## 🚀 Future Improvements
-- Feature selection to reduce noise
-- Use XGBoost / LightGBM
-- Hyperparameter tuning
-- K-Fold Cross Validation
-- Better categorical encoding
+A scatter plot is used to compare:
 
----
+X-axis: Actual Prices
+Y-axis: Predicted Prices
 
-## ▶️ How to Run
-```bash
+This helps evaluate how close predictions are to real values.
+
+📉 10. Key Observations
+Model captures general trends in the data
+Higher error on expensive houses
+Dataset is highly non-linear
+One-hot encoding increases feature dimensionality significantly
+MLP is sensitive to noisy features in tabular data
+🚀 11. Future Improvements
+
+Although the current MLP model provides reasonable performance, several improvements can be applied:
+
+🔹 Feature Engineering
+Feature selection to remove irrelevant variables
+Correlation analysis and importance ranking
+Reduce noise from high-dimensional features
+🔹 Encoding Improvements
+Replace One-Hot Encoding with:
+Target Encoding
+Embedding layers
+🔹 Advanced Models
+XGBoost
+LightGBM
+CatBoost
+
+These models are often more effective for tabular data.
+
+🔹 Model Optimization
+Hyperparameter tuning (learning rate, layers, batch size)
+Automated tuning using Grid Search or Optuna
+🔹 Cross Validation
+K-Fold Cross Validation
+Improves stability and reduces variance
+🔹 Dimensionality Reduction
+PCA (Principal Component Analysis)
+Reduces feature space while preserving variance
+🔹 Regularization Enhancements
+L1 / L2 regularization
+Higher dropout rates
+📁 12. Project Structure
+House-Price-MLP/
+│
+├── model.py / model.ipynb
+├── requirements.txt
+├── README.md
+├── AmesHousing.csv (optional)
+└── results/
+    └── prediction_plot.png
+💻 13. How to Run the Project
 pip install -r requirements.txt
 python model.py
+🛠️ 14. Technologies Used
+Python
+PyTorch
+Pandas
+NumPy
+Scikit-learn
+Matplotlib
+🧾 15. Conclusion
+
+This project demonstrates a complete deep learning pipeline for regression using an MLP model.
+
+Despite being a simple architecture, it captures meaningful relationships in the dataset, but also highlights the limitations of neural networks for tabular data compared to gradient boosting methods.
+
+🚀 16. Final Note
+
+This project serves as a baseline deep learning regression model, with several planned improvements for future versions.
